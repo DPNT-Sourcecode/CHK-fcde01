@@ -10,6 +10,26 @@ def _read_prices():
     | D    | 15    |                        |
     | E    | 40    | 2E get one B free      |
     | F    | 10    | 2F get one F free      |
+    | G    | 20    |                        |
+    | H    | 10    | 5H for 45, 10H for 80  |
+    | I    | 35    |                        |
+    | J    | 60    |                        |
+    | K    | 80    | 2K for 150             |
+    | L    | 90    |                        |
+    | M    | 15    |                        |
+    | N    | 40    | 3N get one M free      |
+    | O    | 10    |                        |
+    | P    | 50    | 5P for 200             |
+    | Q    | 30    | 3Q for 80              |
+    | R    | 50    | 3R get one Q free      |
+    | S    | 30    |                        |
+    | T    | 20    |                        |
+    | U    | 40    | 3U get one U free      |
+    | V    | 50    | 2V for 90, 3V for 130  |
+    | W    | 20    |                        |
+    | X    | 90    |                        |
+    | Y    | 10    |                        |
+    | Z    | 50    |                        |
     """
     f = StringIO(_input)
     input_data = {}
@@ -71,8 +91,8 @@ def _process_items_for_price_special(counter, sku, special_str):
     items = parts[0].strip()
     price = parts[2].strip()
 
-    items_qty = items[0]
-    items_sku = items[1]
+    items_qty = items[:-1]
+    items_sku = items[-1]
     assert sku == items_sku
 
     return _x_items_for_price(counter, items_sku, int(items_qty), int(price))
@@ -125,18 +145,9 @@ def checkout(skus: str) -> int:
     for sku, special_str in large_specials.items():
         total += _process_items_for_price_special(counter, sku, special_str)
 
-    # Deal with "2E get one B free"
-    # _deal_with_specials(counter, 'E', input_data['E']['specials'])
-
-    # Deal with "2F get one F free"
-    # _deal_with_specials(counter, 'F', input_data['F']['specials'])
-
-    # Deal with A specials
-    # total += _process_items_for_price_special(counter, 'A', "5A for 200")
-    total += _process_items_for_price_special(counter, 'A', "3A for 130")
-
-    # Deal with B specials
-    # total += _process_items_for_price_special(counter, 'B', "2B for 45")
+    # Small specials last
+    for sku, special_str in small_specials.items():
+        total += _process_items_for_price_special(counter, sku, special_str)
 
     # Nothing should be negative
     for sku in input_data:
@@ -144,6 +155,7 @@ def checkout(skus: str) -> int:
         total += counter[sku] * int(input_data[sku]['price'])
 
     return total
+
 
 
 
