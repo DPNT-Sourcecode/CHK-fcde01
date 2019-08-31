@@ -12,6 +12,8 @@ def _read_prices():
     | F    | 10    | 2F get one F free      |
     """
     f = StringIO(_input)
+    input_data = {}
+
     for line in f.readlines():
         parts = line.split('|')
         if len(parts) < 4:
@@ -19,9 +21,9 @@ def _read_prices():
         sku = parts[1].strip()
         price = parts[2].strip()
         specials = parts[3].strip()
-        print(sku)
-        print(price)
-        print(specials)
+        input_data[sku] = {'price': price, 'specials': specials}
+
+    return input_data
 
 
 # noinspection PyUnusedLocal
@@ -74,3 +76,4 @@ def checkout(skus: str) -> int:
 
     return ((a_5_200 * 200) + (a_3_130 * 130) + (a_count * 50) + (b_special * 45) + (b_count * 30)
             + (c_count * 20) + (d_count * 15) + (e_count * 40) + (f_count * 10))
+
