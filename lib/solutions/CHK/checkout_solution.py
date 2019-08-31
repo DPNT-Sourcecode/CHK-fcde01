@@ -35,8 +35,18 @@ def _x_items_for_price(counter, sku, number, price):
 
 
 def _buy_x_get_y_free(counter, x_sku, x_qty, y_sku, y_qty):
-    free_ys = counter[x_sku] // (x_qty + y_qty)
-    counter[y_sku] -= free_ys
+    if x_sku == y_sku:
+        free_ys = counter[x_sku] // (x_qty + y_qty)
+        counter[y_sku] -= free_ys
+    else:
+        # When this problem is specified, y_qty should always be 1
+        assert y_qty == 1
+        free_ys = counter[x_sku] // x_qty
+        # We cannot have negative quantities of y_sku
+        if counter[y_sku] >= free_ys:
+            counter[y_sku] -= free_ys
+        else:
+            counter[y_sku] = 0
 
 # noinspection PyUnusedLocal
 # skus = unicode string
@@ -54,12 +64,7 @@ def checkout(skus: str) -> int:
     total = 0
 
     # Deal with "2E get one B free"
-    # We cannot have negative quantities of B
-    free_bs = counter['E'] // 2
-    if counter['B'] >= free_bs:
-        counter['B'] -= free_bs
-    else:
-        counter['B'] = 0
+    _buy_x_get_y_free(counter, 'E', 2, 'B', 1)
 
     # Deal with "2F get one F free"
     _buy_x_get_y_free(counter, 'F', 2, 'F', 1)
@@ -77,6 +82,7 @@ def checkout(skus: str) -> int:
         total += counter[sku] * int(input_data[sku]['price'])
 
     return total
+
 
 
 
