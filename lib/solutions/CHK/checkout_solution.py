@@ -34,6 +34,11 @@ def _x_items_for_price(counter, sku, number, price):
     return special_qty * price
 
 
+def _buy_x_get_y_free(counter, x_sku, x_qty, y_sku, y_qty):
+    # y_qty ignored for now. Its always one
+    free_ys = counter[x_sku] // x_qty
+    counter[y_sku] -= free_ys
+
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus: str) -> int:
@@ -58,8 +63,7 @@ def checkout(skus: str) -> int:
         counter['B'] = 0
 
     # Deal with "2F get one F free"
-    free_fs = counter['F'] // 3
-    counter['F'] -= free_fs
+    _buy_x_get_y_free(counter, 'F', 2, 'F', 1)
 
     # Deal with A specials
     total += _x_items_for_price(counter, 'A', 5, 200)
@@ -74,6 +78,7 @@ def checkout(skus: str) -> int:
         total += counter[sku] * int(input_data[sku]['price'])
 
     return total
+
 
 
 
