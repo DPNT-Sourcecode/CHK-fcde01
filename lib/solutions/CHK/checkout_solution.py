@@ -7,7 +7,7 @@ def checkout(skus: str) -> int:
         return -1
 
     for char in skus:
-        if char not in 'ABCDE':
+        if char not in 'ABCDEF':
             return -1
 
     c = Counter(skus.lower())
@@ -16,7 +16,10 @@ def checkout(skus: str) -> int:
     c_count = c['c']
     d_count = c['d']
     e_count = c['e']
+    f_count = c['f']
 
+    # Deal with "2E get one B free"
+    # We cannot have negative quantities of B
     free_bs = e_count // 2
     if b_count >= free_bs:
         b_count -= free_bs
@@ -35,3 +38,4 @@ def checkout(skus: str) -> int:
 
     return ((a_5_200 * 200) + (a_3_130 * 130) + (a_count * 50) + (b_special * 45) + (b_count * 30)
             + (c_count * 20) + (d_count * 15) + (e_count * 40))
+
