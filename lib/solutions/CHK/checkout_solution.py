@@ -105,7 +105,7 @@ def checkout(skus: str) -> int:
         if char not in input_data:
             return -1
 
-    counter = Counter(skus)
+    counter = dict(Counter(skus))
     total = 0
 
     # Deal with "2E get one B free"
@@ -130,6 +130,7 @@ def checkout(skus: str) -> int:
         total += counter[sku] * int(input_data[sku]['price'])
 
     return total
+
 
 
 
