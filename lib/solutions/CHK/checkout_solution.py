@@ -3,7 +3,7 @@ from io import StringIO
 
 
 def _read_prices():
-    input = """
+    _input = """
     +------+-------+------------------------+
     | Item | Price | Special offers         |
     +------+-------+------------------------+
@@ -14,7 +14,9 @@ def _read_prices():
     | E    | 40    | 2E get one B free      |
     | F    | 10    | 2F get one F free      |
     +------+-------+------------------------+"""
-    f = StringIO(input)
+    f = StringIO(_input)
+    for line in f.readlines():
+        print(line)
 
 
 # noinspection PyUnusedLocal
@@ -67,4 +69,5 @@ def checkout(skus: str) -> int:
 
     return ((a_5_200 * 200) + (a_3_130 * 130) + (a_count * 50) + (b_special * 45) + (b_count * 30)
             + (c_count * 20) + (d_count * 15) + (e_count * 40) + (f_count * 10))
+
 

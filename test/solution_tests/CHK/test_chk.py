@@ -113,3 +113,10 @@ class TestCheckoutF:
 
     def test_checkout_6F(self):
         assert checkout_solution.checkout("FFFFFF") == 40
+
+
+class TestReadInput:
+
+    def test_read_input(self):
+        assert checkout_solution._read_prices() == 1
+
