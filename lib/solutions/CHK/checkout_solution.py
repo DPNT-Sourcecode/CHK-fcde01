@@ -68,7 +68,33 @@ def _buy_x_get_y_free(counter, x_sku, x_qty, y_sku, y_qty):
         else:
             counter[y_sku] = 0
 
-def _group_discount(counter, group_skus)
+
+def _group_discount(counter, group_skus, group_price=45):
+    total_group_items = 0
+    for sku in group_skus:
+        total_group_items += counter[sku]
+
+    group_discounts = total_group_items // 3
+    group_total_cost = group_discounts * group_price
+
+    # Remove the correct number of items from the various skus
+    # These items will be charged as a group instead
+    reduce_total = group_discounts * 3
+    for sku, price in sorted(group_skus.items()):
+        # Reduce the most expensive sku first
+
+        sku_count = counter[sku]
+        if sku_count >= reduce_total:
+            counter[sku] -= reduce_total
+            reduce_total -= reduce_total
+        else:
+            counter[sku] -= sku_count
+            reduce_total -= sku_count
+
+        if reduce_total <= 0:
+            break
+
+    return group_total_cost
 
 
 def _process_free_special(counter, sku, special_str):
@@ -116,7 +142,7 @@ def checkout(skus: str) -> int:
     free_specials = {}
     large_specials = {}
     small_specials = {}
-    buy_any_specials = {}
+    group_specials = {}
 
     # Organise and process specials (text)
     for sku in input_data:
@@ -125,7 +151,7 @@ def checkout(skus: str) -> int:
             if special_str.endswith('free'):
                 free_specials[sku] = special_str
             elif special_str.startswith('buy any'):
-                buy_any_specials[sku] = special_str
+                group_specials[sku] = special_str
             elif ',' in special_str:
                 small_spec, large_spec = special_str.split(',')
                 assert 'for' in large_spec
@@ -139,6 +165,7 @@ def checkout(skus: str) -> int:
     print(free_specials)
     print(large_specials)
     print(small_specials)
+    print(group_specials)
 
     # Free specials first
     for sku, special_str in free_specials.items():
@@ -152,10 +179,20 @@ def checkout(skus: str) -> int:
     for sku, special_str in small_specials.items():
         total += _process_items_for_price_special(counter, sku, special_str)
 
+    # Build a dict of group skus and prices
+    group_skus = {}
+    for sku in ['S', 'T', 'X', 'Y', 'Z']:
+        group_skus[sku] = input_data[sku]['price']
+
+    # Group specials (Buy Any X)
+    for sku, special_str in group_specials.items():
+        total += _group_discount(counter, group_skus, group_price=45)
+
     # Nothing should be negative
     for sku in input_data:
         assert counter[sku] >= 0
         total += counter[sku] * int(input_data[sku]['price'])
 
     return total
+
 
