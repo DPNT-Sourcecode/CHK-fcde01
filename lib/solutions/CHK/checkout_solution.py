@@ -4,19 +4,19 @@ from io import StringIO
 
 def _read_prices():
     _input = """
-    +------+-------+------------------------+
-    | Item | Price | Special offers         |
-    +------+-------+------------------------+
     | A    | 50    | 3A for 130, 5A for 200 |
     | B    | 30    | 2B for 45              |
     | C    | 20    |                        |
     | D    | 15    |                        |
     | E    | 40    | 2E get one B free      |
     | F    | 10    | 2F get one F free      |
-    +------+-------+------------------------+"""
+    """
     f = StringIO(_input)
     for line in f.readlines():
-        print(line)
+        start, sku, price, specials, end = line.split('|')
+        print(sku)
+        print(price)
+        print(specials)
 
 
 # noinspection PyUnusedLocal
@@ -69,5 +69,6 @@ def checkout(skus: str) -> int:
 
     return ((a_5_200 * 200) + (a_3_130 * 130) + (a_count * 50) + (b_special * 45) + (b_count * 30)
             + (c_count * 20) + (d_count * 15) + (e_count * 40) + (f_count * 10))
+
 
 
