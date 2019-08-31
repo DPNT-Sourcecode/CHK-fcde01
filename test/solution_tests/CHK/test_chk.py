@@ -122,4 +122,3 @@ class TestReadInput:
 
     def test_read_input(self):
         assert isinstance(checkout_solution._read_prices(), dict)
-

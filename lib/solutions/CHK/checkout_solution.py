@@ -48,6 +48,9 @@ def _buy_x_get_y_free(counter, x_sku, x_qty, y_sku, y_qty):
         else:
             counter[y_sku] = 0
 
+def _deal_with_specials(counter, sku, special_str):
+    if special_str
+
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus: str) -> int:
@@ -82,11 +85,3 @@ def checkout(skus: str) -> int:
         total += counter[sku] * int(input_data[sku]['price'])
 
     return total
-
-
-
-
-
-
-
-
