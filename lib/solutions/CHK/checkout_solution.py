@@ -50,7 +50,11 @@ def _buy_x_get_y_free(counter, x_sku, x_qty, y_sku, y_qty):
 
 
 def _deal_with_specials(counter, sku, special_str):
-    if special_str and special_str.endswith('free'):
+    if special_str:
+        if ',' in special_str:
+            specials = special_str.split(',')
+
+        and special_str.endswith('free'):
         parts = special_str.split(' ')
         x = parts[0].strip()
         y = parts[3].strip()
@@ -83,9 +87,11 @@ def checkout(skus: str) -> int:
 
     # Deal with "2E get one B free"
     # _buy_x_get_y_free(counter, 'E', 2, 'B', 1)
+    _deal_with_specials(counter, 'E', input_data['E']['specials'])
 
     # Deal with "2F get one F free"
     # _buy_x_get_y_free(counter, 'F', 2, 'F', 1)
+    _deal_with_specials(counter, 'F', input_data['F']['specials'])
 
     # Deal with A specials
     total += _x_items_for_price(counter, 'A', 5, 200)
@@ -96,12 +102,11 @@ def checkout(skus: str) -> int:
 
     # Nothing should be negative
     for sku in input_data:
-        _deal_with_specials(counter, sku, input_data[sku]['specials'])
-
         assert counter[sku] >= 0
         total += counter[sku] * int(input_data[sku]['price'])
 
     return total
+
 
 
 
