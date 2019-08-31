@@ -73,14 +73,12 @@ def _process_items_for_price_special(counter, sku, special_str):
 
     print(items)
     print(price)
-    assert len(x) == 2
-    assert len(y) == 1
 
-    x_sku = x[1]
-    assert sku == x_sku
-    x_qty = x[0]
+    items_qty = items[0]
+    items_sku = items[1]
+    assert sku == items_sku
 
-    _buy_x_get_y_free(counter, x_sku, int(x_qty), y, 1)
+    _x_items_for_price(counter, items_sku, int(items_qty), price)
 
 
 def _deal_with_specials(counter, sku, special_str):
@@ -119,7 +117,8 @@ def checkout(skus: str) -> int:
     _deal_with_specials(counter, 'F', input_data['F']['specials'])
 
     # Deal with A specials
-    total += _x_items_for_price(counter, 'A', 5, 200)
+    _process_items_for_price_special(counter, 'A', "5A for 200")
+    # total += _x_items_for_price(counter, 'A', 5, 200)
     total += _x_items_for_price(counter, 'A', 3, 130)
 
     # Deal with B specials
@@ -131,6 +130,7 @@ def checkout(skus: str) -> int:
         total += counter[sku] * int(input_data[sku]['price'])
 
     return total
+
 
 
 
