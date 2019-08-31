@@ -143,4 +143,3 @@ class TestCheckoutV:
 
     def test_checkout_6V(self):
         assert checkout_solution.checkout("VVVVVV") == 260
-
