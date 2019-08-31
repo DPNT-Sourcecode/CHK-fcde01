@@ -122,3 +122,25 @@ class TestReadInput:
 
     def test_read_input(self):
         assert isinstance(checkout_solution._read_prices(), dict)
+
+
+class TestCheckoutV:
+
+    def test_checkout_1V(self):
+        assert checkout_solution.checkout("V") == 50
+
+    def test_checkout_2V(self):
+        assert checkout_solution.checkout("VV") == 90
+
+    def test_checkout_3V(self):
+        assert checkout_solution.checkout("VVV") == 130
+
+    def test_checkout_4V(self):
+        assert checkout_solution.checkout("VVVV") == 180
+
+    def test_checkout_5V(self):
+        assert checkout_solution.checkout("VVVVV") == 220
+
+    def test_checkout_6V(self):
+        assert checkout_solution.checkout("VVVVVV") == 260
+
