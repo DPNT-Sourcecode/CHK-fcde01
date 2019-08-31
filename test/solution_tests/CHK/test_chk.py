@@ -40,7 +40,7 @@ class TestCheckoutA:
         assert checkout_solution.checkout("AAAAAAAA") == 330
 
     def test_checkout_11A(self):
-        assert checkout_solution.checkout("AAAAAAAAAAA") == 490
+        assert checkout_solution.checkout("AAAAAAAAAAA") == 450
 
 
 class TestCheckoutB:
@@ -86,6 +86,7 @@ class TestCheckoutE:
 
     def test_checkout_4E4B(self):
         assert checkout_solution.checkout("EEEEBB") == 160 + 45
+
 
 
 
