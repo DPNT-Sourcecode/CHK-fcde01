@@ -1,4 +1,4 @@
-from solutions.SUM import hello_solution
+from solutions.HLO import hello_solution
 
 
 class TestSum:
@@ -8,3 +8,4 @@ class TestSum:
 
     def test_hlo2(self):
         assert isinstance(hello_solution.hello("dskgfldfkjf sdgkdlfj"), str)
+
