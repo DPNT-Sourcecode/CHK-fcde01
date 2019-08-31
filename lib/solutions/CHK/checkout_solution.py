@@ -1,3 +1,4 @@
+import operator
 from collections import Counter
 from io import StringIO
 
@@ -80,7 +81,9 @@ def _group_discount(counter, group_skus, group_price=45):
     # Remove the correct number of items from the various skus
     # These items will be charged as a group instead
     reduce_total = group_discounts * 3
-    for sku, price in sorted(group_skus.items()):
+
+    # Sort skus by price
+    for sku, price in sorted(group_skus.items(), key=operator.itemgetter(1), reverse=True):
         # Reduce the most expensive sku first
 
         sku_count = counter[sku]
@@ -194,5 +197,6 @@ def checkout(skus: str) -> int:
         total += counter[sku] * int(input_data[sku]['price'])
 
     return total
+
 
 
