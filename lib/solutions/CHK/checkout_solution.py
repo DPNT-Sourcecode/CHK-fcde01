@@ -79,6 +79,14 @@ def _process_items_for_price_special(counter, sku, special_str):
 
 
 def _deal_with_specials(counter, sku, special_str):
+    """
+    Specials must run in a certain order. Free specials must run first,
+    followed by largest quantity specials and then finally smallest quantity specials.
+    :param counter:
+    :param sku:
+    :param special_str:
+    :return:
+    """
     print(f'Dealing with specials for SKU: {sku} - {special_str}')
     if special_str:
         if ',' in special_str:
@@ -106,11 +114,31 @@ def checkout(skus: str) -> int:
     counter = Counter(skus)
     total = 0
 
+    free_specials = {}
+    large_specials = {}
+    small_specials = {}
+
+    # Organise specials
+    for sku in input_data:
+        special_str = input_data[sku]['specials']
+        if special_str:
+            if special_str.endswith('free'):
+                free_specials[sku] = special_str
+            if ',' in special_str:
+                small_spec, large_spec = special_str.split(',')
+                large_specials[sku] = large_spec
+                small_specials[sku] = small_spec
+            else:
+                large_specials[sku] = special_str
+
+    for sku, special_str in free_specials.items():
+        _deal_with_specials(counter, sku, special_str)
+
     # Deal with "2E get one B free"
-    _deal_with_specials(counter, 'E', input_data['E']['specials'])
+    # _deal_with_specials(counter, 'E', input_data['E']['specials'])
 
     # Deal with "2F get one F free"
-    _deal_with_specials(counter, 'F', input_data['F']['specials'])
+    # _deal_with_specials(counter, 'F', input_data['F']['specials'])
 
     # Deal with A specials
     total += _process_items_for_price_special(counter, 'A', "5A for 200")
@@ -125,3 +153,4 @@ def checkout(skus: str) -> int:
         total += counter[sku] * int(input_data[sku]['price'])
 
     return total
+
