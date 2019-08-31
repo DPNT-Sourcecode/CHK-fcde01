@@ -1,8 +1,10 @@
-
+from collections import Counter
 
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus: str) -> int:
-    raise NotImplementedError()
+    c = Counter(skus)
+    
+
 
 
