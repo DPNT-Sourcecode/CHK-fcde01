@@ -38,7 +38,7 @@ def checkout(skus: str) -> int:
         if char not in input_data:
             return -1
 
-    counter = Counter()
+    counter = Counter(skus)
 
     # Deal with "2E get one B free"
     # We cannot have negative quantities of B
@@ -70,5 +70,6 @@ def checkout(skus: str) -> int:
         total += counter[sku] * int(input_data[sku]['price'])
 
     return total
+
 
 

@@ -9,6 +9,9 @@ class TestCheckout:
     def test_checkout_lower(self):
         assert checkout_solution.checkout('abc') == -1
 
+    def test_checkout_lower2(self):
+        assert checkout_solution.checkout('ABCa') == -1
+
     def test_checkout_other_string(self):
         assert checkout_solution.checkout('-') == -1
 
@@ -118,4 +121,5 @@ class TestCheckoutF:
 class TestReadInput:
 
     def test_read_input(self):
-        assert checkout_solution._read_prices() == 1
+        assert isinstance(checkout_solution._read_prices(), dict)
+
