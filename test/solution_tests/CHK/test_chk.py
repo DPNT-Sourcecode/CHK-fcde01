@@ -143,3 +143,31 @@ class TestCheckoutV:
 
     def test_checkout_6V(self):
         assert checkout_solution.checkout("VVVVVV") == 260
+
+
+class TestGroupDiscount:
+
+    def test_checkout_3S(self):
+        assert checkout_solution.checkout("SSS") == 45
+
+    def test_checkout_3T(self):
+        assert checkout_solution.checkout("TTT") == 45
+
+    def test_checkout_3X(self):
+        assert checkout_solution.checkout("XXX") == 45
+
+    def test_checkout_3Y(self):
+        assert checkout_solution.checkout("YYY") == 45
+
+    def test_checkout_3Z(self):
+        assert checkout_solution.checkout("ZZZ") == 45
+
+    def test_mix1(self):
+        assert checkout_solution.checkout("STX") == 45
+
+    def test_mix2(self):
+        assert checkout_solution.checkout("ZZY") == 45
+
+    def test_mix3(self):
+        assert checkout_solution.checkout("XSX") == 45
+
