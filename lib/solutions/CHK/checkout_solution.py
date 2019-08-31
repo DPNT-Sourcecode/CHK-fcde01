@@ -13,7 +13,12 @@ def _read_prices():
     """
     f = StringIO(_input)
     for line in f.readlines():
-        start, sku, price, specials, end = line.split('|')
+        parts = line.split('|')
+        if len(parts) < 4:
+            continue
+        sku = parts[1].strip()
+        price = parts[2].strip()
+        specials = parts[3].strip()
         print(sku)
         print(price)
         print(specials)
@@ -69,6 +74,3 @@ def checkout(skus: str) -> int:
 
     return ((a_5_200 * 200) + (a_3_130 * 130) + (a_count * 50) + (b_special * 45) + (b_count * 30)
             + (c_count * 20) + (d_count * 15) + (e_count * 40) + (f_count * 10))
-
-
-

@@ -119,4 +119,3 @@ class TestReadInput:
 
     def test_read_input(self):
         assert checkout_solution._read_prices() == 1
-
