@@ -18,7 +18,10 @@ def checkout(skus: str) -> int:
     e_count = c['e']
 
     free_bs = e_count // 2
-    b_count -= free_bs
+    if b_count >= free_bs:
+        b_count -= free_bs
+    else:
+        b_count = 0
 
     # Deal with A specials
     a_5_200 = a_count // 5
@@ -32,6 +35,3 @@ def checkout(skus: str) -> int:
 
     return ((a_5_200 * 200) + (a_3_130 * 130) + (a_count * 50) + (b_special * 45) + (b_count * 30)
             + (c_count * 20) + (d_count * 15) + (e_count * 40))
-
-
-
