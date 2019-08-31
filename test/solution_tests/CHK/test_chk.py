@@ -10,4 +10,3 @@ class TestSum:
     def test_sum_100100(self):
         # assert checkout_solution.checkout(100, 100) == 200
         pass
-
