@@ -26,6 +26,14 @@ def _read_prices():
     return input_data
 
 
+def _x_items_for_price(counter, sku, number, price):
+    # Calculate number of specials
+    special_qty = counter[sku] // number
+    # Adjust remaining number
+    counter[sku] = counter[sku] % number
+    return special_qty * price
+
+
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus: str) -> int:
@@ -39,6 +47,7 @@ def checkout(skus: str) -> int:
             return -1
 
     counter = Counter(skus)
+    total = 0
 
     # Deal with "2E get one B free"
     # We cannot have negative quantities of B
@@ -53,16 +62,14 @@ def checkout(skus: str) -> int:
     counter['F'] -= free_fs
 
     # Deal with A specials
-    a_5_200 = counter['A'] // 5
-    counter['A'] = counter['A'] % 5
-    a_3_130 = counter['A'] // 3
-    counter['A'] = counter['A'] % 3
+    total += _x_items_for_price(counter, 'A', 5, 200)
+    total += _x_items_for_price(counter, 'A', 3, 130)
 
     # Deal with B specials
     b_special = counter['B'] // 2
     counter['B'] = counter['B'] % 2
 
-    total = (a_5_200 * 200) + (a_3_130 * 130) + (b_special * 45)
+    total += (b_special * 45)
 
     # Nothing should be negative
     for sku in input_data:
@@ -70,6 +77,7 @@ def checkout(skus: str) -> int:
         total += counter[sku] * int(input_data[sku]['price'])
 
     return total
+
 
 
 
