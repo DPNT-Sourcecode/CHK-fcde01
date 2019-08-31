@@ -107,30 +107,21 @@ def checkout(skus: str) -> int:
     total = 0
 
     # Deal with "2E get one B free"
-    # _buy_x_get_y_free(counter, 'E', 2, 'B', 1)
-    # _deal_with_specials(counter, 'E', input_data['E']['specials'])
+    _deal_with_specials(counter, 'E', input_data['E']['specials'])
 
     # Deal with "2F get one F free"
-    # _buy_x_get_y_free(counter, 'F', 2, 'F', 1)
-    # _deal_with_specials(counter, 'F', input_data['F']['specials'])
+    _deal_with_specials(counter, 'F', input_data['F']['specials'])
 
     # Deal with A specials
     total += _process_items_for_price_special(counter, 'A', "5A for 200")
     total += _process_items_for_price_special(counter, 'A', "3A for 130")
 
     # Deal with B specials
-    total += _x_items_for_price(counter, 'B', 2, 45)
+    total += _process_items_for_price_special(counter, 'B', "2B for 45")
 
     # Nothing should be negative
     for sku in input_data:
-        if counter[sku] > 0:
-            _deal_with_specials(counter, sku, input_data[sku]['specials'])
-
         assert counter[sku] >= 0
         total += counter[sku] * int(input_data[sku]['price'])
 
     return total
-
-
-
-
