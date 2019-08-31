@@ -186,5 +186,3 @@ class TestGroupDiscountFavourCustomer:
         # Z is most expensive, all others the same (20)
         assert checkout_solution.checkout("STYZ") == 45 + 20
 
-
-

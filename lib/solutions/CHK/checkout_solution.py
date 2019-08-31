@@ -197,6 +197,3 @@ def checkout(skus: str) -> int:
         total += counter[sku] * int(input_data[sku]['price'])
 
     return total
-
-
-
