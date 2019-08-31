@@ -60,9 +60,9 @@ def _deal_with_specials(counter, sku, special_str):
         assert len(x) == 2
         assert len(y) == 1
 
-        x_sku = x[0]
+        x_sku = x[1]
         assert sku == x_sku
-        x_qty = x[1]
+        x_qty = x[0]
 
         _buy_x_get_y_free(counter, x_sku, int(x_qty), y, 1)
 
@@ -102,4 +102,5 @@ def checkout(skus: str) -> int:
         total += counter[sku] * int(input_data[sku]['price'])
 
     return total
+
 
