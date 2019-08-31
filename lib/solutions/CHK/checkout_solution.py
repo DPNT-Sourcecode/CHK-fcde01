@@ -66,10 +66,7 @@ def checkout(skus: str) -> int:
     total += _x_items_for_price(counter, 'A', 3, 130)
 
     # Deal with B specials
-    b_special = counter['B'] // 2
-    counter['B'] = counter['B'] % 2
-
-    total += (b_special * 45)
+    total += _x_items_for_price(counter, 'B', 2, 45)
 
     # Nothing should be negative
     for sku in input_data:
@@ -77,6 +74,7 @@ def checkout(skus: str) -> int:
         total += counter[sku] * int(input_data[sku]['price'])
 
     return total
+
 
 
 
