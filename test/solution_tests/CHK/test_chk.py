@@ -30,6 +30,15 @@ class TestCheckoutA:
     def test_checkout_5A(self):
         assert checkout_solution.checkout("AAAAA") == 200
 
+    def test_checkout_6A(self):
+        assert checkout_solution.checkout("AAAAAA") == 250
+
+    def test_checkout_7A(self):
+        assert checkout_solution.checkout("AAAAAAA") == 300
+
+    def test_checkout_8A(self):
+        assert checkout_solution.checkout("AAAAAAAA") == 330
+
     def test_checkout_11A(self):
         assert checkout_solution.checkout("AAAAAAAAAAA") == 490
 
@@ -77,6 +86,7 @@ class TestCheckoutE:
 
     def test_checkout_4E4B(self):
         assert checkout_solution.checkout("EEEEBB") == 160 + 45
+
 
 
 
