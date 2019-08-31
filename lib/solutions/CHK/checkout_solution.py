@@ -35,8 +35,7 @@ def _x_items_for_price(counter, sku, number, price):
 
 
 def _buy_x_get_y_free(counter, x_sku, x_qty, y_sku, y_qty):
-    # y_qty ignored for now. Its always one
-    free_ys = counter[x_sku] // x_qty
+    free_ys = counter[x_sku] // (x_qty + y_qty)
     counter[y_sku] -= free_ys
 
 # noinspection PyUnusedLocal
@@ -78,6 +77,7 @@ def checkout(skus: str) -> int:
         total += counter[sku] * int(input_data[sku]['price'])
 
     return total
+
 
 
 
