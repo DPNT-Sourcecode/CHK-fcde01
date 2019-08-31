@@ -171,3 +171,20 @@ class TestGroupDiscount:
     def test_mix3(self):
         assert checkout_solution.checkout("XSX") == 45
 
+
+class TestGroupDiscountFavourCustomer:
+    """
+    Here, because we favour the customer, if there is an ambiguous
+    situation with group discount, we will discount the most expensive items first
+    """
+
+    def test_group_discount_favour1(self):
+        # Z is most expensive, so 3Z = 45
+        assert checkout_solution.checkout("ZZZX") == 45 + 17
+
+    def test_group_discount_favour2(self):
+        # Z is most expensive, all others the same (20)
+        assert checkout_solution.checkout("STYZ") == 45 + 20
+
+
+

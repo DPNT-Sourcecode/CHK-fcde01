@@ -68,6 +68,8 @@ def _buy_x_get_y_free(counter, x_sku, x_qty, y_sku, y_qty):
         else:
             counter[y_sku] = 0
 
+def _group_discount(counter, group_skus)
+
 
 def _process_free_special(counter, sku, special_str):
     parts = special_str.split(' ')
@@ -156,3 +158,4 @@ def checkout(skus: str) -> int:
         total += counter[sku] * int(input_data[sku]['price'])
 
     return total
+
