@@ -29,51 +29,46 @@ def _read_prices():
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus: str) -> int:
+    input_data = _read_prices()
+
     if not isinstance(skus, str):
         return -1
 
     for char in skus:
-        if char not in 'ABCDEF':
+        if char not in input_data:
             return -1
 
-    c = Counter(skus.lower())
-    a_count = c['a']
-    b_count = c['b']
-    c_count = c['c']
-    d_count = c['d']
-    e_count = c['e']
-    f_count = c['f']
+    counter = Counter()
 
     # Deal with "2E get one B free"
     # We cannot have negative quantities of B
-    free_bs = e_count // 2
-    if b_count >= free_bs:
-        b_count -= free_bs
+    free_bs = counter['E'] // 2
+    if counter['B'] >= free_bs:
+        counter['B'] -= free_bs
     else:
-        b_count = 0
+        counter['B'] = 0
 
     # Deal with "2F get one F free"
-    free_fs = f_count // 3
-    f_count -= free_fs
+    free_fs = counter['F'] // 3
+    counter['F'] -= free_fs
 
     # Deal with A specials
-    a_5_200 = a_count // 5
-    a_count = a_count % 5
-    a_3_130 = a_count // 3
-    a_count = a_count % 3
+    a_5_200 = counter['A'] // 5
+    counter['A'] = counter['A'] % 5
+    a_3_130 = counter['A'] // 3
+    counter['A'] = counter['A'] % 3
 
     # Deal with B specials
-    b_special = b_count // 2
-    b_count = b_count % 2
+    b_special = counter['B'] // 2
+    counter['B'] = counter['B'] % 2
+
+    total = (a_5_200 * 200) + (a_3_130 * 130) + (b_special * 45)
 
     # Nothing should be negative
-    assert a_count >= 0
-    assert b_count >= 0
-    assert c_count >= 0
-    assert d_count >= 0
-    assert e_count >= 0
-    assert f_count >= 0
+    for sku in input_data:
+        assert counter[sku] >= 0
+        total += counter[sku] * int(input_data[sku]['price'])
 
-    return ((a_5_200 * 200) + (a_3_130 * 130) + (a_count * 50) + (b_special * 45) + (b_count * 30)
-            + (c_count * 20) + (d_count * 15) + (e_count * 40) + (f_count * 10))
+    return total
+
 
