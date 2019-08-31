@@ -79,7 +79,7 @@ def _process_items_for_price_special(counter, sku, special_str):
 
 
 def _deal_with_specials(counter, sku, special_str):
-    print(f'Dealing with specials for SKU: {sku}')
+    print(f'Dealing with specials for SKU: {sku} - {special_str}')
     if special_str:
         if ',' in special_str:
             specials = special_str.split(',')
@@ -116,9 +116,7 @@ def checkout(skus: str) -> int:
 
     # Deal with A specials
     total += _process_items_for_price_special(counter, 'A', "5A for 200")
-    # total += _x_items_for_price(counter, 'A', 5, 200)
     total += _process_items_for_price_special(counter, 'A', "3A for 130")
-    # total += _x_items_for_price(counter, 'A', 3, 130)
 
     # Deal with B specials
     total += _x_items_for_price(counter, 'B', 2, 45)
@@ -132,6 +130,7 @@ def checkout(skus: str) -> int:
         total += counter[sku] * int(input_data[sku]['price'])
 
     return total
+
 
 
 
