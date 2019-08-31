@@ -71,16 +71,11 @@ def _process_items_for_price_special(counter, sku, special_str):
     items = parts[0].strip()
     price = parts[2].strip()
 
-    print(items)
-    print(price)
-
     items_qty = items[0]
     items_sku = items[1]
     assert sku == items_sku
-    r = _x_items_for_price(counter, items_sku, int(items_qty), price)
-    print(r)
 
-    return r
+    return _x_items_for_price(counter, items_sku, int(items_qty), int(price))
 
 
 def _deal_with_specials(counter, sku, special_str):
@@ -121,15 +116,19 @@ def checkout(skus: str) -> int:
     # Deal with A specials
     total += _process_items_for_price_special(counter, 'A', "5A for 200")
     # total += _x_items_for_price(counter, 'A', 5, 200)
-    total += _x_items_for_price(counter, 'A', 3, 130)
+    total += _process_items_for_price_special(counter, 'A', "3A for 130")
+    # total += _x_items_for_price(counter, 'A', 3, 130)
 
     # Deal with B specials
     total += _x_items_for_price(counter, 'B', 2, 45)
 
     # Nothing should be negative
     for sku in input_data:
+        _deal_with_specials(counter, sku, input_data[sku]['specials'])
+
         assert counter[sku] >= 0
         total += counter[sku] * int(input_data[sku]['price'])
 
     return total
+
 
