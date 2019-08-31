@@ -15,8 +15,11 @@ class TestCheckout:
     def test_checkout_1(self):
         assert checkout_solution.checkout("ABC") == 50+30+20
 
-    def test_checkout_6(self):
+    def test_checkout_2(self):
         assert checkout_solution.checkout("ABCD") == 115
+
+    def test_checkout_3(self):
+        assert checkout_solution.checkout("ABCDEF") == 115 + 40 + 10
 
 
 class TestCheckoutA:
@@ -110,3 +113,4 @@ class TestCheckoutF:
 
     def test_checkout_6F(self):
         assert checkout_solution.checkout("FFFFFF") == 40
+
