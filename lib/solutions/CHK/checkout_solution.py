@@ -54,8 +54,25 @@ def _process_free_special(counter, sku, special_str):
     x = parts[0].strip()
     y = parts[3].strip()
 
-    print(x)
-    print(y)
+    # print(x)
+    # print(y)
+    assert len(x) == 2
+    assert len(y) == 1
+
+    x_sku = x[1]
+    assert sku == x_sku
+    x_qty = x[0]
+
+    _buy_x_get_y_free(counter, x_sku, int(x_qty), y, 1)
+
+
+def _process_items_for_price_special(counter, sku, special_str):
+    parts = special_str.split(' ')
+    items = parts[0].strip()
+    price = parts[2].strip()
+
+    print(items)
+    print(price)
     assert len(x) == 2
     assert len(y) == 1
 
@@ -114,6 +131,7 @@ def checkout(skus: str) -> int:
         total += counter[sku] * int(input_data[sku]['price'])
 
     return total
+
 
 
 
