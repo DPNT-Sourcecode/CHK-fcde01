@@ -49,26 +49,34 @@ def _buy_x_get_y_free(counter, x_sku, x_qty, y_sku, y_qty):
             counter[y_sku] = 0
 
 
+def _process_free_special(counter, sku, special_str):
+    parts = special_str.split(' ')
+    x = parts[0].strip()
+    y = parts[3].strip()
+
+    print(x)
+    print(y)
+    assert len(x) == 2
+    assert len(y) == 1
+
+    x_sku = x[1]
+    assert sku == x_sku
+    x_qty = x[0]
+
+    _buy_x_get_y_free(counter, x_sku, int(x_qty), y, 1)
+
+
 def _deal_with_specials(counter, sku, special_str):
     if special_str:
         if ',' in special_str:
             specials = special_str.split(',')
+        else:
+            specials = [special_str]
 
-        and special_str.endswith('free'):
-        parts = special_str.split(' ')
-        x = parts[0].strip()
-        y = parts[3].strip()
+        for special in specials:
+            if special.endswith('free'):
+                _process_free_special(counter, sku, special)
 
-        print(x)
-        print(y)
-        assert len(x) == 2
-        assert len(y) == 1
-
-        x_sku = x[1]
-        assert sku == x_sku
-        x_qty = x[0]
-
-        _buy_x_get_y_free(counter, x_sku, int(x_qty), y, 1)
 
 # noinspection PyUnusedLocal
 # skus = unicode string
@@ -106,6 +114,7 @@ def checkout(skus: str) -> int:
         total += counter[sku] * int(input_data[sku]['price'])
 
     return total
+
 
 
 
