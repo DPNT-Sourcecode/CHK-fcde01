@@ -52,8 +52,8 @@ def _buy_x_get_y_free(counter, x_sku, x_qty, y_sku, y_qty):
 def _deal_with_specials(counter, sku, special_str):
     if special_str and special_str.endswith('free'):
         parts = special_str.split(' ')
-        x = parts[0]
-        y = parts[3]
+        x = parts[0].strip()
+        y = parts[3].strip()
 
         print(x)
         print(y)
@@ -102,5 +102,6 @@ def checkout(skus: str) -> int:
         total += counter[sku] * int(input_data[sku]['price'])
 
     return total
+
 
 
