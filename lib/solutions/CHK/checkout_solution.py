@@ -18,7 +18,3 @@ def checkout(skus: str) -> int:
     b_count = b_count % 2
 
     return (a_special * 130) + (a_count * 50) + (b_special * 45) + (b_count * 30) + (c_count * 20) + (d_count * 15)
-
-
-
-
