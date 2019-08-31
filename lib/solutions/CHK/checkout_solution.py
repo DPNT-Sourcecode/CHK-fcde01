@@ -99,7 +99,7 @@ def checkout(skus: str) -> int:
 
     # Organise specials
     for sku in input_data:
-        special_str = input_data[sku]['specials']
+        special_str = input_data[sku]['specials'].strip()
         if special_str:
             if special_str.endswith('free'):
                 free_specials[sku] = special_str
@@ -107,11 +107,15 @@ def checkout(skus: str) -> int:
                 small_spec, large_spec = special_str.split(',')
                 assert 'for' in large_spec
                 assert 'for' in small_spec
-                large_specials[sku] = large_spec
-                small_specials[sku] = small_spec
+                large_specials[sku] = large_spec.strip()
+                small_specials[sku] = small_spec.strip()
             else:
                 assert 'for' in special_str
                 large_specials[sku] = special_str
+
+    print(free_specials)
+    print(large_specials)
+    print(small_specials)
 
     # Free specials first
     for sku, special_str in free_specials.items():
@@ -140,5 +144,6 @@ def checkout(skus: str) -> int:
         total += counter[sku] * int(input_data[sku]['price'])
 
     return total
+
 
 
